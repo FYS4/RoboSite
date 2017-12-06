@@ -1,71 +1,56 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+/* Module dependencies */
+const app = require('../app');
+const config = require('../config');
+const cluster = require('cluster'); // Take advantage of multi-core systems
+const debug = require('debug')('robosite:server'); // A tiny JavaScript debugging utility.
+const http = require('http'); // The HTTP server and client
 
- const app = require('../app');
- const cluster = require('cluster'); // Take advantage of multi-core systems
- const debug = require('debug')('robosite:server'); // A tiny JavaScript debugging utility.
- const http = require('http'); // The HTTP server and client
-
-/**
- * Get port from environment and store in Express.
- */
-
-let port = cluster.isMaster ? 8080 : 80;
+/* Get port from config / environment / default, and set port*/
+const portCustomer = config.Server.Port.Customer || process.env.CPORT || 80;
+const portEmployee = config.Server.Port.Employee || process.env.EPORT || 3000;
+const port = cluster.isWorker ? portCustomer : portEmployee;
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+/* Create HTTP server */
+let server = http.createServer(app);
 
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+/* Listen on provided port, on all network interfaces */
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
+/* Event listener for HTTP server "error" event */
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+	let bind = typeof port === 'string'
+		? 'Pipe ' + port
+		: 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+	case 'EACCES':
+		console.error(bind + ' requires elevated privileges');
+		process.exit(1);
+		break;
+	case 'EADDRINUSE':
+		console.error(bind + ' is already in use');
+		process.exit(1);
+		break;
+	default:
+		throw error;
+	}
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
+/* Event listener for HTTP server "listening" event. */
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+	let addr = server.address();
+	let bind = typeof addr === 'string'
+		? 'pipe ' + addr
+		: 'port ' + addr.port;
+	debug('Listening on ' + bind);
 }
