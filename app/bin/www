@@ -4,15 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('robosite:server');
-var http = require('http');
+ const app = require('../app');
+ const cluster = require('cluster'); // Take advantage of multi-core systems
+ const debug = require('debug')('robosite:server'); // A tiny JavaScript debugging utility.
+ const http = require('http'); // The HTTP server and client
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+let port = cluster.isMaster ? 8080 : 80;
 app.set('port', port);
 
 /**
@@ -28,26 +29,6 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.
