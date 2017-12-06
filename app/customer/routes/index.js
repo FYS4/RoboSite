@@ -2,10 +2,12 @@
 
 /* Routes */
 const home = require('./home');
+const auth = require('./auth');
 
-module.exports = (app) => {
+module.exports = (app, passport) => {
 	/* Routes */
 	app.use('/', home);
+	app.use('/auth', auth(passport));
 
 	/* Catch 404 and forward to error handler */
 	app.use((req, res, next) => {
