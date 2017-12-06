@@ -1,8 +1,8 @@
-let express = require('express');
-let path = require('path');
+const express = require('express');
+const path = require('path');
 
-let index = require('./routes/index');
-let users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 module.exports = (app) => {
 	// view engine setup
@@ -16,7 +16,7 @@ module.exports = (app) => {
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
-		let err = new Error('Not Found');
+		const err = new Error('Not Found');
 		err.status = 404;
 		next(err);
 	});
