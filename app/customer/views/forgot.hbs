@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/css/login.css">
+
+<div class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    {{#if msg}}
+      <script>
+        Materialize.toast("{{msg}}", 4000);
+      </script>
+    {{/if}}
+    <form class="login-form" action="/auth/forgot" method="post">
+      <div class="row">
+        <div class="input-field col s12 center">
+          <h5>Wachtwoord Vergeten</h5>
+          <p class="center" style="font-size: 15px; width: 100%;">Voer a.u.b. uw e-mailadres in. U ontvangt een herstel link op uw e-mailadres.</p>
+        </div>
+      </div>
+      <div class="row margin">
+        <div class="input-field col s12">
+          <i class="fa fa-user prefix" aria-hidden="true"></i>
+          <input type="text" name="email" id="email">
+          <label for="emailadres" class="center-align">E-mailadres</label>
+        </div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-success" style="width: 100%; padding: 0 .75rem;" class="btn waves-effect waves-light col s12">
+        Verstuur
+      </button>
+    </form>
+    </div>
+  </div>
