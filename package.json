@@ -6,9 +6,11 @@
     "start": "node ./app/bin/www"
   },
   "dependencies": {
+    "compression": "1.7.1",
     "cookie-parser": "1.4.3",
     "express": "4.16.2",
     "hbs": "4.0.1",
+    "helmet": "3.9.0",
     "morgan": "1.9.0",
     "serve-favicon": "2.4.5"
   }

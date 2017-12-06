@@ -1,46 +1,56 @@
-let express = require('express');
-let path = require('path');
-let favicon = require('serve-favicon');
-let logger = require('morgan');
-let cookieParser = require('cookie-parser');
-let bodyParser = require('body-parser');
+'use strict';
 
-let index = require('./routes/index');
-let users = require('./routes/users');
+/* Core */
+const express = require('express'); // Fast, unopinionated, minimalist web framework for Node.js
+const cluster = require('cluster'); // Take advantage of multi-core systems
+const path = require('path'); // Provides utilities for working with file and directory paths
+const os = require('os'); // Provides operating system-related utility methods
 
+/* Best Practices */
+const helmet = require('helmet'); // Helps secure your apps by setting various HTTP headers
+const compression = require('compression'); // Compress HTTP responses
+const morgan = require('morgan'); // HTTP request logger
+const bodyparser = require('body-parser'); // Parse HTTP request body
+
+/* Cluster */
+const customer = require('./customer'); // Customer site
+const employee = require('./employee'); // Employee site
+
+/* Create Webserver */
 let app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+/* Load modules */
+app.use(helmet());
+app.use(compression());
+app.use(morgan('dev')); // Format: :method :url :status :response-time ms - :res[content-length]
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({
+	extended: true
+}));
+app.use(express.static(path.resolve(__dirname, 'public'), {
+	maxage: 1 * 60 * 1000
+}));
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+/* Employees */
+if (cluster.isMaster) {
+	/* Create workers */
+	const numWorkers = (os.cpus().length <= 4 ? os.cpus().length : 4);
+	for (let i = 0; i < numWorkers; i += 1) {
+		cluster.fork(); // Create a worker
+	}
 
-app.use('/', index);
-app.use('/users', users);
+	/* If a worker 'dies' */
+	cluster.on('exit', () => {
+		cluster.fork(); // Create a worker
+	});
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-	let err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
+	app = employee(app); // Apply employee site
+}
 
-// error handler
-app.use(function(err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+/* Customers */
+if (cluster.isWorker) {
+	app = customer(app); // Apply customer site
+}
 
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
-});
-
+/* Return Webserver-object */
 module.exports = app;
