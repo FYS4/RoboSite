@@ -1,0 +1,59 @@
+html, body {
+  height: 100%;
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+body {
+  background-color: #f9f9f9
+}
+
+.row {
+  padding: 0% 7.5%;
+}
+
+.medium-small {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0
+}
+
+.margin {
+  margin: 0 !important
+}
+
+.login-form {
+  width: 350px
+}
+
+.login-form-text {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1rem;
+}
+
+.profile-image-login {
+  width: 200px;
+  height: 100px !important
+}
+
+.loginbutton {
+  padding: 2.5% !important;
+  text-align: center;
+}
+
+.loginbutton>button>i {
+  float: left;
+}
+
+.loginbutton>a>i {
+  float: left;
+}

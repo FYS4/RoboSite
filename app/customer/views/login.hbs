@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="/css/login.css">
+
+<div class="row">
+  <div class="col s12 z-depth-4 card-panel">
+    {{#if msg}}
+      <script>
+        Materialize.toast("{{msg}}", 4000);
+      </script>
+    {{/if}}
+    <form class="login-form" action="/auth/login" method="post">
+      <div class="row" style="margin-bottom: 0px;">
+        <div class="input-field col s12 center">
+          <img src="/img/Corendon-Logo.svg" alt="" class="circle responsive-img valign profile-image-login">
+        </div>
+      </div>
+      {{#if showLocal}}
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="fa fa-user prefix" aria-hidden="true"></i>
+            <input type="text" name="email" id="email">
+            <label for="emailadres" class="center-align">E-mailadres</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="fa fa-lock prefix" aria-hidden="true"></i>
+            <input type="password" name="password" id="wachtwoord">
+            <label for="wachtwoord">Wachtwoord</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 loginbutton">
+            <button type="submit" class="btn btn-success" style="width: 100%; padding: 0 .75rem;" class="btn waves-effect waves-light col s12">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+          </button>
+          </div>
+
+          <div class="divider" style="width:100%;"></div>
+      {{/if}}
+
+      {{#if showFacebook}}
+        <div class="col s12 loginbutton">
+          <a href="/auth/facebook" class="btn waves-effect waves-light col s12" style="background-color: #3071a9;">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i> Login met Facebook
+          </a>
+        </div>
+      {{/if}}
+
+      {{#if showGoogle}}
+        <div class="col s12 loginbutton">
+          <a href="/auth/google" class="btn waves-effect waves-light col s12" style="background-color: #c9302c;">
+            <i class="fa fa-google-plus-square" aria-hidden="true"></i> Login met Google
+          </a>
+        </div>
+      {{/if}}
+
+      {{#if showLocal}}
+        <div class="divider" style="width:100%;"></div>
+
+        <div class="input-field col s12 m12 l12">
+          <p class="margin right-align medium-small">
+            <a href="/vergeten" style="color: black !important; font-weight: bold;">
+              Wachtwoord vergeten?
+            </a>
+          </p>
+        </div>
+      {{/if}}
+      </div>
+    </form>
+  </div>
+</div>
