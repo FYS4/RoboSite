@@ -1,0 +1,89 @@
+body {
+  background: url("https://images.corendon.nl/NL/homepage/25_korting-1600x1200.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+nav {
+  background-color: #d81e05 !important;
+}
+
+main>.row {
+  margin: 0;
+  padding: 0;
+}
+
+main>.row>.col {
+  margin: 0;
+  padding: 0;
+  margin-top: 2.5%;
+}
+
+.collapsible-body {
+  margin: 0;
+  padding: 0;
+}
+
+.collapsible-body>.row {
+  margin-top: 20%;
+}
+
+.imagerow {
+  background-color: white;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-top: 2% !important;
+}
+
+.imagerow>.col {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.imagerow>div {
+  margin: 0;
+  padding: 0;
+}
+
+.imagerow>div>img {
+  padding: 2.5%;
+  width: 100%;
+  height: auto;
+}
+
+.polaroid-images {
+  width: 100%;
+}
+
+.polaroid-images a {
+  background: white;
+  display: inline;
+  float: left;
+  margin: 0 15px 30px;
+  padding: 10px 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
+  -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .3);
+  -webkit-transition: all .15s linear;
+  -moz-transition: all .15s linear;
+  transition: all .15s linear;
+  z-index: 0;
+  position: relative;
+}
+
+.polaroid-images a:after {
+  color: #333;
+  font-size: 20px;
+  content: attr(title);
+  position: relative;
+  top: 15px;
+}
+
+.polaroid-images img {
+  display: block;
+  width: 100%;
+}

@@ -6,7 +6,9 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-	res.send('Welcome customer');
+	res.render('home', {
+		user: true
+	});
 });
 
 module.exports = router;
