@@ -1,5 +1,5 @@
 body {
-  background: url("https://images.corendon.nl/NL/homepage/25_korting-1600x1200.jpg") no-repeat center center fixed;
+  background: url("/img/25_korting-1600x1200.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

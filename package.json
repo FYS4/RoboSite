@@ -23,6 +23,7 @@
     "passport-google-oauth": "1.0.0",
     "passport-local": "1.0.0",
     "serve-favicon": "2.4.5",
-    "validator": "9.1.2"
+    "validator": "9.1.2",
+    "webp-converter": "2.1.6"
   }
 }

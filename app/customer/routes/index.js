@@ -3,17 +3,17 @@
 /* Routes */
 const home = require('./home');
 const auth = require('./auth');
+const img = require('./image');
 
 module.exports = (app, passport) => {
 	/* Routes */
 	app.use('/', home);
 	app.use('/auth', auth(passport));
+	app.use('/image', img);
 
-	/* Catch 404 and forward to error handler */
-	app.use((req, res, next) => {
-		const err = new Error('Not Found');
-		err.status = 404;
-		next(err);
+	/* Catch 404 */
+	app.use('*', (req, res, next) => {
+		res.render('404', {});
 	});
 
 	/* Error handler */
