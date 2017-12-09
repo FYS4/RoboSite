@@ -1,0 +1,54 @@
+<style>
+  button {
+    margin: 2.5% 10%;
+    margin-top: 0%;
+    width: 80%;
+    font-size: 0.75rem !important;
+  }
+</style>
+
+<div class="row" style="margin-bottom: 2.5%;">
+  <div class="col s2 hide-on-med-and-down"></div>
+  <div class="col l8 m12 s12">
+    <div class="row imagerow">
+      <div class="col s12 polaroid-images">
+        <a href="/image/view/{{img}}" title="">
+          <img src="/image/load/100/{{img}}" alt="{{img}}">
+        </a>
+      </div>
+
+      <div class="col l3 m6 s12">
+        <a href="/image/download/{{ img }}">
+            <button type="button" class="btn green">
+              <i class="fa fa-download" aria-hidden="true"></i> Download
+            </button>
+          </a>
+      </div>
+
+      <div class="col l3 m6 s12">
+        <a href="/image/share/{{ img }}">
+          <button type="button" class="btn blue">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i> Share on Facebook
+          </button>
+        </a>
+      </div>
+
+      <div class="col l3 m6 s12">
+        <a href="/image/delete/{{ img }}">
+            <button type="button" class="btn red">
+              <i class="fa fa-trash-o" aria-hidden="true"></i> Verwijderen
+            </button>
+          </a>
+      </div>
+
+      <div class="col l3 m6 s12">
+        <a href="/">
+            <button type="button" class="btn orange">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> Terug
+            </button>
+          </a>
+      </div>
+    </div>
+  </div>
+  <div class="col s2 hide-on-med-and-down"></div>
+</div>
