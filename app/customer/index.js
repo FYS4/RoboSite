@@ -2,6 +2,7 @@
 
 /* Core */
 const express = require('express'); // Fast, unopinionated, minimalist web framework for Node.js
+const cluster = require('cluster'); // Take advantage of multi-core systems
 const path = require('path'); // Provides utilities for working with file and directory paths
 
 /* Session */
@@ -16,6 +17,13 @@ const configDB = require('./config/database');
 const routes = require('./routes');
 
 module.exports = (app) => {
+	const worker = cluster.worker;
+	worker.on('message', (message) => {
+		if (message.text === 'shutdown') {
+			process.exit(0);
+		}
+	});
+
 	mongoose.connect(configDB.MongoDB.URL, {
 		useMongoClient: true
 	});

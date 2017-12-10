@@ -18,7 +18,7 @@ const employee = require('./employee'); // Employee site
 
 /* Create Webserver */
 let app = express();
-
+app.use(require('./middleware/status')(process.pid));
 /* Load modules */
 app.use(helmet());
 app.use(compression());
@@ -44,7 +44,7 @@ if (cluster.isMaster) {
 		cluster.fork(); // Create a worker
 	});
 
-	app.cluster = cluster;
+	app.cluster = cluster	;
 	app = employee(app); // Apply employee site
 }
 
