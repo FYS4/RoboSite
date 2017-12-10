@@ -12,6 +12,14 @@ const Routes = require('./routes');
 const Session = require('../customer/models/session');
 
 module.exports = (app) => {
+	/* Remove old sessions due to restart */
+	app.use((req, res, next) => {
+		process.nextTick(() => {
+			Session.deleteMany({});
+			next();
+		});
+	});
+	
 	// view engine setup
 	app.use(Express.static(Path.resolve(__dirname, 'public'), {
 		maxage: 1 * 60 * 1000
