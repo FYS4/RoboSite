@@ -42,5 +42,20 @@
 <script>
   $(document).ready(() => {
     $('.collapsible').collapsible();
+
+    $('li').click(function() {
+      var index = $(this).index();
+
+      var children = $(this).parent().children('li');
+
+      for (var i = children.length; i > 0; i--) {
+        if(i >= index) {
+          $(children[i]).prependTo($(this).parent());
+        } else {
+          $(children[i]).appendTo($(this).parent());
+        }
+      }
+      $(this).prependTo($(this).parent());
+    });
   });
 </script>
