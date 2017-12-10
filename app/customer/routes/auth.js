@@ -18,22 +18,32 @@ const ConfigAuth = require('../config/auth');
 
 module.exports = (passport) => {
 	router.get('/new/:user/:pass', (req, res, next) => {
-		const user = new User();
-		user.local.email = req.params.user;
-		user.local.password = user.generateHash(req.params.pass);
+		User.findOne({
+			'local.email': req.params.user
+		}, (err, user) => {
+			if (user) {
+				user.local.password = user.generateHash(req.params.pass);
+				user.save();
+				return res.redirect('/');
+			}
 
-		user.save()
-			.then(() => {
-				res.redirect('/');
-			})
-			.catch((err) => {
-				next(err);
-			});
+			const newUser = new User();
+			newUser.local.email = req.params.user;
+			newUser.local.password = user.generateHash(req.params.pass);
+
+			newUser.save()
+				.then(() => {
+					res.redirect('/');
+				})
+				.catch((err) => {
+					next(err);
+				});
+		});
 	});
 
 	router.post('/reset/:token', (req, res, next) => {
 		async.waterfall([
-			function (done) {
+			function(done) {
 				User.findOne({
 					'local.resetPasswordToken': req.params.token,
 					'local.resetPasswordExpires': {
@@ -60,7 +70,7 @@ module.exports = (passport) => {
 					});
 				});
 			},
-			function (user, done) {
+			function(user, done) {
 				const NotificationMail = new Mail();
 				NotificationMail.setTargetMail(user.local.email)
 					.then(() => NotificationMail.setSourceMail('no-reply@robobooth.nl'))
@@ -94,13 +104,13 @@ module.exports = (passport) => {
 
 	router.post('/forgot', (req, res, next) => {
 		async.waterfall([
-			function (done) {
+			function(done) {
 				crypto.randomBytes(20, (err, buf) => {
 					const token = buf.toString('hex');
 					done(err, token);
 				});
 			},
-			function (token, done) {
+			function(token, done) {
 				User.findOne({
 					'local.email': req.body.email
 				}, (err, user) => {
@@ -117,7 +127,7 @@ module.exports = (passport) => {
 					});
 				});
 			},
-			function (token, user, done) {
+			function(token, user, done) {
 				const ResetMail = new Mail();
 				ResetMail.setTargetMail(user.local.email)
 					.catch((err) => {

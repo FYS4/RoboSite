@@ -1,6 +1,7 @@
 'use strict';
 
 /* Routes */
+const account = require('./account');
 const home = require('./home');
 const auth = require('./auth');
 const img = require('./image');
@@ -8,6 +9,7 @@ const img = require('./image');
 module.exports = (app, passport) => {
 	/* Routes */
 	app.use('/', home);
+	app.use('/account', account(passport));
 	app.use('/auth', auth(passport));
 	app.use('/image', img);
 
