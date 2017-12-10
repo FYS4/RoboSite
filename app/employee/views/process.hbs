@@ -1,0 +1,54 @@
+<h1>{{title}}</h1>
+<p>Which one do you want to kill?</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <col width="10">
+    <col width="70">
+    <col width="30">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Actieve verbindingen</th>
+        <th>Acties</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each workers}}
+        <tr>
+          <td>
+            Process #{{this.process.pid}}
+          </td>
+          <td>
+            {{this.ActiveUsers}} Gebruiker(s)
+          </td>
+          <td>
+            <div class="row">
+              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                <a href="/process/status/{{this.id}}">
+                  <button type="button" class="btn btn-success" style="width:100%;">
+                    <i class="fa fa-users" aria-hidden="true" style="float: left;"></i> Sessions
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                <a href="/process/status/{{this.id}}">
+                  <button type="button" class="btn btn-info" style="width:100%;">
+                    <i class="fa fa-rocket" aria-hidden="true"  style="float: left;"></i> Status
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                <a href="/process/shutdown/{{this.id}}">
+                  <button type="button" class="btn btn-danger" style="width:100%;">
+                    <i class="fa fa-times-circle" aria-hidden="true" style="float: left;"></i> Afsluiten
+                  </button>
+                </a>
+              </div>
+            </div>
+          </td>
+      {{/each}}
+      <tbody>
+  </table>
+</div>

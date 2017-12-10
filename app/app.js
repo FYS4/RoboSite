@@ -44,6 +44,7 @@ if (cluster.isMaster) {
 		cluster.fork(); // Create a worker
 	});
 
+	app.cluster = cluster;
 	app = employee(app); // Apply employee site
 }
 

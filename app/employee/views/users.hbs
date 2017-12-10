@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+<p>Which one do you want to kill?</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Actieve verbindingen</th>
+        <th>Acties</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each workers}}
+        <tr>
+          <td>
+            Process #{{this.process.pid}}
+          </td>
+          <td>
+            {{this.ActiveUsers}} Gebruiker(s)
+          </td>
+          <td>
+            <a href="/shutdown/{{this.id}}"><button type="button" class="btn btn-danger">Afsluiten</button></a>
+          </td>
+      {{/each}}
+      <tbody>
+  </table>
+</div>
