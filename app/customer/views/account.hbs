@@ -1,0 +1,123 @@
+<style>
+  .card .card-content {
+    padding: 10px;
+  }
+</style>
+
+<div class="row">
+  <div class="col s2 hide-on-med-and-down"></div>
+  <div class="col l8 m12 s12">
+    <div class="row">
+      <div class="col s12">
+        <div class="card white">
+          <div class="card-content">
+            <span class="card-title"><h3>
+          {{#if user.google.name}}
+            {{user.google.name}}
+          {{else}}
+            {{#if user.facebook.name}}
+              {{user.facebook.name}}
+            {{else}}
+               {{user.local.email}}
+             {{/if}}
+          {{/if}}
+        </h3></span>
+        <hr>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="card white">
+                <div class="card-content">
+                  <span class="card-title">
+                      <span class="fa fa-user"></span> RoboBooth
+                  </span>
+                  <table>
+                    <tr>
+                      <th>Email</th>
+                      <td>{{user.local.email}}</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="card-action">
+                  <a href="/account/veranderen">
+                    Wachtwoord wijzigen
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            {{#if showFacebook}}
+              <div class="col s12 m6">
+                <div class="card white">
+                  <div class="card-content">
+                    <span class="card-title">
+                    <span class="fa fa-facebook"></span> Facebook
+                    </span>
+
+                    {{#if user.facebook.token}}
+                      <table class="table">
+                        <tr>
+                          <th>Naam</th>
+                          <td>{{user.facebook.name}}</td>
+                        </tr>
+                        <tr>
+                          <th>Email</th>
+                          <td>{{user.facebook.email}}</td>
+                        </tr>
+                      </table>
+                    {{/if}}
+                  </div>
+                  <div class="card-action">
+                    {{#if user.facebook.token}}
+                      <a href="/account/unlink/facebook" class="btn btn-primary">Unlink</a>
+                    {{else}}
+                      <a href="/account/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+
+
+            {{#if showGoogle}}
+
+              <div class="col s12 m6">
+                <div class="card white">
+                  <div class="card-content">
+                    <span class="card-title">
+                      <span class="fa fa-google-plus"></span> Google+
+                    </span>
+                    {{#if user.google.token}}
+                      <table class="table">
+                        <tr>
+                          <th>Naam</th>
+                          <td>{{user.google.name}}</td>
+                        </tr>
+                        <tr>
+                          <th>Email</th>
+                          <td>{{user.google.email}}</td>
+                        </tr>
+                      </table>
+                    {{/if}}
+                  </div>
+                  <div class="card-action">
+                    {{#if user.google.token}}
+                      <a href="/account/unlink/google" class="btn btn-danger">Unlink</a>
+                    {{else}}
+                      <a href="/account/connect/google" class="btn btn-primary">Connect Google</a>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
