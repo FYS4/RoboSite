@@ -1,0 +1,28 @@
+.status-code {
+  margin-top: 2px;
+}
+
+.status-code:before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.status-code-2xx:before {
+  background-color: #75D701;
+}
+
+.status-code-3xx:before {
+  background-color: #47b8e0;
+}
+
+.status-code-4xx:before {
+  background-color: #ffc952;
+}
+
+.status-code-5xx:before {
+  background-color: #E53A40;
+}
